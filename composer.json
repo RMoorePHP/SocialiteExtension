@@ -15,5 +15,10 @@
             "name": "Robert Moore",
             "email": "robert@sliske.uk"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "RMoore\\SocialiteExtension\\": "src/"
+        }
+    }
 }
