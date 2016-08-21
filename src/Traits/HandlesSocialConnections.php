@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use RMoore\SocialiteExtension\Models\SocialSite;
 use RMoore\SocialiteExtension\Models\SocialLogin;
 
-
+use Laravel\Socialite\Contracts\Factory as Socialite;
 
 trait HandlesSocialConnections {
 	private function setConfig(SocialSite $provider){
