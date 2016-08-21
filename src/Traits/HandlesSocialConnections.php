@@ -1,9 +1,5 @@
 <?php 
 
-use Config;
-use Auth;
-use Session;
-
 use Illuminate\Http\Request;
 
 use RMoore\SocialiteExtension\Models\SocialSite;
@@ -13,7 +9,7 @@ use RMoore\SocialiteExtension\Models\SocialLogin;
 
 trait HandlesSocialConnections {
 	private function setConfig(SocialSite $provider){
-		Config::set("services.{$provider->class}", [
+		config("services.{$provider->class}", [
 			'client_id' => $provider->app_id,
 			'client_secret' => $provider->app_secret,
 			'redirect' => route('auth.social.callback', ['provider' => $provider->class])
@@ -37,9 +33,9 @@ trait HandlesSocialConnections {
         	return $this->loginUser($social->user);
         }	 
 
-        if(Auth::check()){
+        if(auth()->check()){
 			$social = SocialLogin::create([
-				'user_id' => Auth::id(),
+				'user_id' => auth()->id(),
 				'provider_id' => $provider->id,
 				'social_site_id' => $user->id
 			]);
@@ -88,7 +84,7 @@ trait HandlesSocialConnections {
     		'social_site_id' => session('user_data')['id']
     	]);
 
-    	Auth::login($user);
+    	auth()->login($user);
 
     	session()->forget('user_data');    	
     	session()->forget('social_provider');
@@ -105,12 +101,12 @@ trait HandlesSocialConnections {
     }
 
     protected function registerUser(){
-    	$model = Config::get('auth.providers.users.model');
+    	$model = config('auth.providers.users.model');
     	return $model::register($credentials);
     }
 
     protected function loginUser($user){
-        Auth::login($user);
+        auth()->login($user);
         return redirect('/');
     }
 }
