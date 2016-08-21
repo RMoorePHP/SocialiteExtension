@@ -110,10 +110,6 @@ trait HandlesSocialConnections {
     }
 
     protected function loginUser($user){
-    	if($user->google2fa_confirmed){
-            Session::put('user_id', $user->id);
-            return redirect('/auth/2fa');
-        }
         Auth::login($user);
         return redirect('/');
     }

@@ -2,19 +2,13 @@
 
 namespace RMoore\SocialiteExtension\Controllers;
 
-use Illuminate\Http\Request;
-
-use Socialite;
 use Auth;
-
 use Config;
-
-use RMoore\SocialiteExtension\Models\SocialLogin;
-use RMoore\SocialiteExtension\Models\SocialSite;
-
 use Session;
 
 use RMoore\SocialiteExtension\Traits\HandlesSocialConnections;
+
+use Illuminate\Routing\Controller;
 
 class SocialController extends Controller
 {
@@ -31,5 +25,14 @@ class SocialController extends Controller
     protected function registerUser(){        
         $model = Config::get('auth.providers.users.model');
         return User::register($credentials);
+    }
+
+    protected function loginUser($user){
+        if($user->google2fa_confirmed){
+            Session::put('user_id', $user->id);
+            return redirect('/auth/2fa');
+        }
+        Auth::login($user);
+        return redirect('/');
     }
 }
