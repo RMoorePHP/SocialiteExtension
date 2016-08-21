@@ -22,13 +22,13 @@ trait HandlesSocialConnections {
     public function redirectToProvider(SocialSite $provider)
     {
         $this->setConfig($provider);
-        return $provider->redirect();
+        return app(Socialite::class)->driver($provider->class)->redirect();
     }
 
     public function handleProviderCallback(SocialSite $provider)
     {
         $this->setConfig($provider);
-        $user = $provider->user();
+        $user = app(Socialite::class)->driver($provider->class)->user();
 
         $social = SocialLogin::where('provider_id', $provider->id)->where('social_site_id', $user->id)->first();
 

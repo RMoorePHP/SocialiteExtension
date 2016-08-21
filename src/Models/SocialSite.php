@@ -34,12 +34,12 @@ class SocialSite extends Model
     }
 
 
-    public function redirect(Socialite $socialite){
-        $socialite->driver($this->class)->redirect();
+    public function redirect(){
+        app(Socialite::class)->driver($this->class)->redirect();
     }
 
     public function user(Socialite $socialite){
-        $socialite->driver($this->class)->user();
+        app(Socialite::class)->driver($this->class)->user();
     }
 
     
