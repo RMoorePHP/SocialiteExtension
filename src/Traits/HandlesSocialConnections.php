@@ -10,6 +10,7 @@ use RMoore\SocialiteExtension\Models\SocialLogin;
 use Laravel\Socialite\Contracts\Factory as Socialite;
 
 trait HandlesSocialConnections {
+
 	private function setConfig(SocialSite $provider){
 		config("services.{$provider->class}", [
 			'client_id' => $provider->app_id,
@@ -21,13 +22,13 @@ trait HandlesSocialConnections {
     public function redirectToProvider(SocialSite $provider)
     {
         $this->setConfig($provider);
-        return Socialite::driver($provider->class)->redirect();
+        return $provider->redirect();
     }
 
     public function handleProviderCallback(SocialSite $provider)
     {
         $this->setConfig($provider);
-        $user = Socialite::driver($provider->class)->user();
+        $user = $provider->user();
 
         $social = SocialLogin::where('provider_id', $provider->id)->where('social_site_id', $user->id)->first();
 

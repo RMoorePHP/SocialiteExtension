@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Laravel\Socialite\Contracts\Factory as Socialite;
+
 class SocialSite extends Model
 {
     use RecordsChanges, SoftDeletes;
@@ -29,6 +31,15 @@ class SocialSite extends Model
 
     public function scopeActive($query){
     	return $query->where('active', true)->whereNotNull('app_id')->whereNotNull('app_secret');
+    }
+
+
+    public function redirect(Socialite $socialite){
+        $socialite->driver($this->class)->redirect();
+    }
+
+    public function user(Socialite $socialite){
+        $socialite->driver($this->class)->user();
     }
 
     
