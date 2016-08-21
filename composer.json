@@ -1,0 +1,19 @@
+{
+    "name": "rmoore/socialite-extension",
+    "description": "adds some extra functionality to the laravel socialite package",
+    "require": {
+        "illuminate/support": "^5.2",
+        "laravel/socialite": "^2.0",
+        "rmoore/change-recorder": "^1.0"
+
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5"
+    },
+    "authors": [
+        {
+            "name": "Robert Moore",
+            "email": "robert@sliske.uk"
+        }
+    ]
+}
