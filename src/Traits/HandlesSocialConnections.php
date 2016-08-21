@@ -1,5 +1,7 @@
 <?php 
 
+namespace RMoore\SocialiteExtension\Traits;
+
 use Illuminate\Http\Request;
 
 use RMoore\SocialiteExtension\Models\SocialSite;
