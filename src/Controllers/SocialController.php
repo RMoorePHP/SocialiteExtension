@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller;
 
 class SocialController extends Controller
 {
-	use HandlesSocialConnections;
+    use HandlesSocialConnections;
 
     protected function userValidation(){
         return [
