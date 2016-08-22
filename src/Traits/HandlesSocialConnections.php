@@ -12,29 +12,26 @@ trait HandlesSocialConnections
     private function setConfig(SocialSite $provider)
     {
         config()->set("services.{$provider->class}", [
-            'client_id'     => $provider->app_id,
+            'client_id'=> $provider->app_id,
             'client_secret' => $provider->app_secret,
-            'redirect'      => route('auth.social.callback', ['provider' => $provider->class]),
+            'redirect'=> route('auth.social.callback', ['provider' => $provider->class]),
         ]);
     }
 
-    public function redirectToProvider(SocialSite $provider)
-    {
+    public function redirectToProvider(SocialSite $provider){
         $this->setConfig($provider);
-
         return app(Socialite::class)->driver($provider->class)->redirect();
     }
 
-    public function handleProviderCallback(SocialSite $provider)
-    {
+    public function handleProviderCallback(SocialSite $provider){
         $this->setConfig($provider);
         $user = app(Socialite::class)->driver($provider->class)->user();
 
         $social = SocialLogin::where('provider_id', $provider->id)->where('social_site_id', $user->id)->first();
 
-        if ($social && $social->exists()) {
+        if ($social && $social->exists()) 
             return $this->loginUser($social->user);
-        }
+        
 
         if (auth()->check()) {
             $social = SocialLogin::create([
