@@ -13,21 +13,21 @@ class SocialiteExtensionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (! $this->app->routesAreCached()) {
-	        require __DIR__.'/routes.php';
-	    }
+        if (!$this->app->routesAreCached()) {
+            require __DIR__.'/routes.php';
+        }
 
-	    $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-	    $this->loadViewsFrom(__DIR__.'/../resources/views', 'rmoore-socialite-extension');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'rmoore-socialite-extension');
 
-	    $this->publishes([
-	        __DIR__.'/../database/migrations/' => database_path('migrations')
-	    ], 'migrations');
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations'),
+        ], 'migrations');
 
-	    $this->publishes([
-	        __DIR__.'/../resources/views' => resource_path('views/vendor/rmoore-socialite-extension'),
-	    ], 'views');
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/rmoore-socialite-extension'),
+        ], 'views');
     }
 
     /**
@@ -39,6 +39,5 @@ class SocialiteExtensionServiceProvider extends ServiceProvider
     {
         $this->app->register('Laravel\Socialite\SocialiteServiceProvider');
         $this->app->register('RMoore\ChangeRecorder\ChangeRecorderServiceProvider');
-        
     }
 }
